@@ -8,6 +8,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG_PATH = ROOT / "data" / "catalog.json"
 README_PATH = ROOT / "README.md"
+STATUS_ICON_MAP = {
+    "Obtainable": "assets/status/yes.svg",
+    "Retired": "assets/status/no.svg",
+    "Unreleased / undocumented": "assets/status/unknown.svg",
+}
+EARN_ICON_MAP = {
+    "Yes": "assets/status/yes.svg",
+    "No": "assets/status/no.svg",
+    "Unknown": "assets/status/unknown.svg",
+}
 
 
 def load_catalog() -> dict:
@@ -26,6 +36,14 @@ def markdown_table(rows: list[list[str]]) -> str:
     return "\n".join(parts)
 
 
+def render_icon(path: str, alt: str, width: int = 24) -> str:
+    return f'<img src="{path}" alt="{alt}" width="{width}">'
+
+
+def render_status(path: str, label: str) -> str:
+    return f'{render_icon(path, label, width=16)} {label}'
+
+
 def build_section(title: str, items: list[dict]) -> str:
     rows = [[
         "Name",
@@ -38,11 +56,15 @@ def build_section(title: str, items: list[dict]) -> str:
     ]]
 
     for item in items:
+        status_label = item["status"]
+        earn_label = item["can_earn_now"]
+        status_icon = STATUS_ICON_MAP.get(status_label, STATUS_ICON_MAP["Unreleased / undocumented"])
+        earn_icon = EARN_ICON_MAP.get(earn_label, EARN_ICON_MAP["Unknown"])
         rows.append([
-            item["name"],
+            f'{render_icon(item["image"], item["name"])}<br><strong>{item["name"]}</strong>',
             item["type"],
-            item["status"],
-            item["can_earn_now"],
+            render_status(status_icon, status_label),
+            render_status(earn_icon, earn_label),
             item["how"],
             item["notes"],
             ", ".join(item["refs"]),
