@@ -7,6 +7,7 @@ Last verified: **2026-04-06**
 ## Scope
 
 - This repo focuses on profile-visible GitHub badges and achievements.
+- This catalog is intentionally kept as a static reference so everything stays visible directly in this README.
 - It separates **officially documented** items from **mixed** and **community-reported** items.
 - GitHub does **not** publish a complete official achievements catalog, so some rows are marked with lower confidence on purpose.
 - Community rows are useful, but you should treat them as best-effort guidance rather than guaranteed GitHub policy.
@@ -84,11 +85,3 @@ Last verified: **2026-04-06**
 - `B3`: GitHub Blog, Open source goes to Mars - https://github.blog/news-insights/company-news/open-source-goes-to-mars/
 - `B4`: GitHub Archive Program, Arctic Vault - https://archiveprogram.github.com/arctic-vault/
 - `C1`: GitHub Community discussion #176080 (community-maintained) - https://github.com/orgs/community/discussions/176080
-
-## Updating
-
-If you update `data/catalog.json`, regenerate this README with:
-
-```bash
-python scripts/render_readme.py
-```
