@@ -44,6 +44,10 @@ def render_status(path: str, label: str) -> str:
     return f'{render_icon(path, label, width=16)} {label}'
 
 
+def render_badge(path: str, alt: str) -> str:
+    return render_icon(path, alt, width=44)
+
+
 def build_section(title: str, items: list[dict]) -> str:
     rows = [[
         "Name",
@@ -61,7 +65,7 @@ def build_section(title: str, items: list[dict]) -> str:
         status_icon = STATUS_ICON_MAP.get(status_label, STATUS_ICON_MAP["Unreleased / undocumented"])
         earn_icon = EARN_ICON_MAP.get(earn_label, EARN_ICON_MAP["Unknown"])
         rows.append([
-            f'{render_icon(item["image"], item["name"])}<br><strong>{item["name"]}</strong>',
+            f'{render_badge(item["image"], item["name"])}<br><strong>{item["name"]}</strong>',
             item["type"],
             render_status(status_icon, status_label),
             render_status(earn_icon, earn_label),
